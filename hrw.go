@@ -1,11 +1,10 @@
 package hashing
 
 import (
+	"cmp"
 	"encoding/binary"
 	"hash"
 	"math"
-
-	"golang.org/x/exp/constraints"
 )
 
 type Hasher func() hash.Hash
@@ -55,7 +54,7 @@ func DetermineResponsibleNode(hasher Hasher, key string, nodes []*Node) *Node {
 	return nodes[idx]
 }
 
-type comparable = constraints.Ordered
+type comparable = cmp.Ordered
 
 func IndexMax[T comparable](values []T) int {
 	// 비교할 값이 없음

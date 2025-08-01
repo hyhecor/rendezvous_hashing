@@ -2,7 +2,6 @@ package hashing
 
 import (
 	"crypto/md5"
-	"fmt"
 	"math"
 	"strconv"
 	"testing"
@@ -57,15 +56,15 @@ func TestNode(t *testing.T) {
 		board[IndexMax([]float64{f1, f2, f3, f4, f5})]++
 	}
 
-	fmt.Println(board)
+	t.Log("board:", board)
 
 	div := func(a, b int) int { return a / b }
 
-	fmt.Println(div(board[0], board[0]))
-	fmt.Println(div(board[1], board[0]))
-	fmt.Println(div(board[2], board[0]))
-	fmt.Println(div(board[3], board[0]))
-	fmt.Println(div(board[4], board[0]))
+	t.Log(node1.Name, board[0], div(board[0], board[0]))
+	t.Log(node2.Name, board[1], div(board[1], board[0]))
+	t.Log(node3.Name, board[2], div(board[2], board[0]))
+	t.Log(node4.Name, board[3], div(board[3], board[0]))
+	t.Log(node5.Name, board[4], div(board[4], board[0]))
 }
 
 func TestHRW(t *testing.T) {
@@ -92,15 +91,15 @@ func TestHRW(t *testing.T) {
 		board[node.Name]++
 	}
 
-	fmt.Println(board)
+	t.Log("board:", board)
 
 	div := func(a, b int) int { return a / b }
 
-	fmt.Println(div(board[node1.Name], board[node1.Name]))
-	fmt.Println(div(board[node2.Name], board[node1.Name]))
-	fmt.Println(div(board[node3.Name], board[node1.Name]))
-	fmt.Println(div(board[node4.Name], board[node1.Name]))
-	fmt.Println(div(board[node5.Name], board[node1.Name]))
+	t.Log(node1.Name, board[node1.Name], div(board[node1.Name], board[node1.Name]))
+	t.Log(node2.Name, board[node2.Name], div(board[node2.Name], board[node1.Name]))
+	t.Log(node3.Name, board[node3.Name], div(board[node3.Name], board[node1.Name]))
+	t.Log(node4.Name, board[node4.Name], div(board[node4.Name], board[node1.Name]))
+	t.Log(node5.Name, board[node5.Name], div(board[node5.Name], board[node1.Name]))
 }
 
 func TestMathLog(t *testing.T) {
@@ -113,7 +112,7 @@ func TestMathLog(t *testing.T) {
 		for _, w := range weights {
 			log_score := 1.0 / math.Log(float64(i))
 			score := w * log_score
-			t.Log(i, score)
+			t.Log("i:", i, "weight:", w, "score:", score)
 		}
 	}
 }
@@ -124,21 +123,21 @@ func TestReplicaSets(t *testing.T) {
 	rate := 3
 
 	nodes := make([]int, max_nodes)
-	for i := 0; i < len(nodes); i++ {
+	for i := range len(nodes) {
 		nodes[i] = i
 	}
 
 	var set = make([][]int, len(nodes))
-	for i := 0; i < len(nodes); i++ {
+	for i := range len(nodes) {
 		set[i] = make([]int, rate)
-		for j := 0; j < rate; j++ {
+		for j := range rate {
 			set[i][j] = nodes[(i+j)%len(nodes)]
 		}
 	}
 
 	for _, set_item := range set {
 		// for _, sub_item := range set {
-		fmt.Printf("%+v\n", set_item)
+		t.Log(set_item)
 		// }
 	}
 
